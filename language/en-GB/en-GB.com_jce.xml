@@ -1,41 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<install version="1.5" type="language">
+<install version="2.0" type="language" core="1" client="both" method="upgrade">
 	<name>English(United Kingdom)</name>
 	<tag>en-GB</tag>
-	<version>1.5.2</version>
-	<creationDate>2005-10-30</creationDate>
+	<version>2.3.4.4</version>
+	<creationDate>12 December 2013</creationDate>
 	<author>Ryan Demmer</author>
-	<authorEmail>ryandemmer@gmail.com</authorEmail>
+	<authorEmail>info@joomlacontenteditor.net</authorEmail>
 	<authorUrl>www.joomlacontenteditor.net</authorUrl>
-	<copyright>(C) 2008-2009 Ryan Demmer. All rights reserved.</copyright>
-	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
-	<description></description>
-	<site>
-		<files folder="site">	
-			<filename>en-GB.com_jce_advlink.ini</filename>
-			<filename>en-GB.com_jce_imgmanager.ini</filename>
-			<filename>en-GB.com_jce_paste.ini</filename>
-			<filename>en-GB.com_jce_media.ini</filename>
-			<filename>en-GB.com_jce_spellchecker.ini</filename>
-			<filename>en-GB.com_jce.ini</filename>
-		</files>
+	<copyright>Copyright (C) 2006 - 2013 Ryan Demmer. All rights reserved</copyright>
+	<license>GNU/GPL Version 2 or later - http://www.gnu.org/licenses/gpl-2.0.html</license>
+	<description>English(United Kingdom) language pack for JCE 2.x</description>
+	<site folder="language/en-GB">
+		<file>en-GB.com_jce.ini</file>	
+		<!-- // Subscription plugin language files // -->
+		<file>en-GB.com_jce_caption.ini</file> 
+		<file>en-GB.com_jce_emotions.ini</file>
+		<file>en-GB.com_jce_filemanager.ini</file>
+		<file>en-GB.com_jce_fullpage.ini</file>
+		<file>en-GB.com_jce_iframe.ini</file>
+		<file>en-GB.com_jce_mediamanager.ini</file>
+		<file>en-GB.com_jce_mediamanager.ini</file>
+		<file>en-GB.com_jce_templatemanager.ini</file>
+		<file>en-GB.com_jce_microdata.ini</file>
+		<file>en-GB.com_jce_popups_rokbox.ini</file>
+		<file>en-GB.com_jce_popups_widgetkit.ini</file>
 	</site>
-	<tinymce>
-		<files folder="tinymce">
-			<filename>langs/en.js</filename>
-			<filename>langs/en_dlg.js</filename>
-			<filename>themes/advanced/langs/en.js</filename>
-			<filename>themes/advanced/langs/en_dlg.js</filename>
-			<filename>plugins/advlink/langs/de_dlg.js</filename>
-			<filename>plugins/emotions/langs/en_dlg.js</filename>
-			<filename>plugins/paste/langs/de_dlg.js</filename>
-			<filename>plugins/searchreplace/langs/en_dlg.js</filename>
-			<filename>plugins/style/langs/en_dlg.js</filename>
-			<filename>plugins/table/langs/en_dlg.js</filename>
-			<filename>plugins/xhtmlxtras/langs/en_dlg.js</filename>
-		</files>
-	</tinymce>
-	<admin folder="administration">
-		<filename>eng-GB.com_jce.ini</filename>
-	</admin>
+	<administration folder="administrator/language/en-GB">
+		<file>en-GB.com_jce.ini</file>
+		<file>en-GB.com_jce.menu.ini</file>
+		<file>en-GB.com_jce.sys.ini</file>
+		<file>en-GB.plg_editors_jce.ini</file>
+		<file>en-GB.plg_editors_jce.sys.ini</file>
+		<file>en-GB.plg_quickicon_jcefilebrowser.ini</file>
+		<file>en-GB.plg_quickicon_jcefilebrowser.sys.ini</file>
+	</administration>
 </install>

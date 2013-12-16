@@ -1,3 +1,0 @@
-<?php endif; ?>
-	</tbody>
-</table>

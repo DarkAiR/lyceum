@@ -1,45 +1,99 @@
 <?php
+
 /**
-* @version		installer.php 05 April 2009
-* @package		JCE
-* @subpackage	Admin Component
-* @copyright	Copyright (C) 2005 - 2009 Ryan Demmer. All rights reserved.
-* @license		GNU/GPL
-* JCE is free software. This version may have been modified pursuant
-* to the GNU General Public License, and as distributed it includes or
-* is derivative of works licensed under the GNU General Public License or
-* other free or open source software licenses.
-*/
-
-// no direct access
-defined('_JEXEC') or die('Restricted access');
-
-/*
- * Make sure the user is authorized to view this page
+ * @package   	JCE
+ * @copyright 	Copyright (c) 2009-2013 Ryan Demmer. All rights reserved.
+ * @license   	GNU/GPL 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ * JCE is free software. This version may have been modified pursuant
+ * to the GNU General Public License, and as distributed it includes or
+ * is derivative of works licensed under the GNU General Public License or
+ * other free or open source software licenses.
  */
+defined('_JEXEC') or die('RESTRICTED');
 
-$ext = JRequest::getWord('type');
+/**
+ * Plugins Component Controller
+ *
+ * @package		Joomla
+ * @subpackage	Plugins
+ * @since 1.5
+ */
+class WFControllerInstaller extends WFController {
 
-$subMenus = array(
-	'Plugins' 			=> 'plugin',
-	'Languages' 		=> 'language',
-	'Plugin Extensions' => 'extension'
-);
-JSubMenuHelper::addEntry(JText::_( 'Control Panel' ), '#" onclick="javascript:document.adminForm.type.value=\'\';document.adminForm.task.value=\'\';submitbutton(\'\');');
-JSubMenuHelper::addEntry(JText::_( 'Install' ), '#" onclick="javascript:document.adminForm.type.value=\'install\';document.adminForm.task.value=\'\';submitbutton(\'\');', !in_array( $ext, $subMenus));
+    /**
+     * Custom Constructor
+     */
+    function __construct($default = array()) {
+        parent::__construct();
 
+        $this->registerTask('disable', 'enable');
 
-foreach ($subMenus as $name => $extension) {
-	JSubMenuHelper::addEntry(JText::_( $name ), '#" onclick="javascript:document.adminForm.type.value=\''.$extension.'\';submitbutton(\'manage\');', ($extension == $ext));
+        $language = JFactory::getLanguage();
+        $language->load('com_installer', JPATH_ADMINISTRATOR);
+    }
+
+    /**
+     * Install an extension
+     *
+     * @access	public
+     * @return	void
+     * @since	1.5
+     */
+    function install() {
+        // Check for request forgeries
+        JRequest::checkToken() or jexit('RESTRICTED');
+
+        $model = $this->getModel('installer');
+
+        if ($model->install()) {
+            $cache = JFactory::getCache('mod_menu');
+            $cache->clean();
+        }
+
+        $view = $this->getView();
+        $view->setModel($model, true);
+        $view->display();
+    }
+
+    /**
+     * Remove (uninstall) an extension
+     *
+     * @static
+     * @param	array	An array of identifiers
+     * @return	boolean	True on success
+     * @since 1.0
+     */
+    function remove() {
+        // Check for request forgeries
+        JRequest::checkToken() or jexit('RESTRICTED');
+
+        $model = $this->getModel('installer');
+
+        $items = array(
+            'plugin'    => JRequest::getVar('pid', array(), '', 'array'),
+            'language'  => JRequest::getVar('lid', array(), '', 'array'),
+            'related'   => JRequest::getVar('rid', array(), '', 'array')
+        );
+
+        // Uninstall the chosen extensions
+        foreach ($items as $type => $ids) {
+            if (count($ids)) {
+                foreach ($ids as $id) {
+                    if ($id) {
+                        if ($model->remove($id, $type)) {
+                            $cache = JFactory::getCache('mod_menu');
+                            $cache->clean();
+                        }
+                    }
+                }
+            }
+        }
+
+        $view = $this->getView();
+        $view->setModel($model, true);
+        $view->display();
+    }
+
 }
-require_once( JPATH_COMPONENT .DS. 'installer' .DS. 'controller.php' );
-$controller = new InstallerController( array(
-	'default_task' => 'installform', 
-	'base_path' =>  JPATH_COMPONENT .DS. 'installer'
-) );
-$task = JRequest::getWord('task');
-if( $task == 'install' ){
-	$task = 'doInstall';
-}
-$controller->execute( $task );
-$controller->redirect();
+
+?>

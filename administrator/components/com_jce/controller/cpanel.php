@@ -1,28 +1,24 @@
 <?php
+
 /**
-* @version		cpanel.php 05 April 2009
-* @package		JCE
-* @subpackage	Admin Component
-* @copyright	Copyright (C) 2005 - 2009 Ryan Demmer. All rights reserved.
-* @license		GNU/GPL
-* JCE is free software. This version may have been modified pursuant
-* to the GNU General Public License, and as distributed it includes or
-* is derivative of works licensed under the GNU General Public License or
-* other free or open source software licenses.
-*/
+ * @package   	JCE
+ * @copyright 	Copyright (c) 2009-2013 Ryan Demmer. All rights reserved.
+ * @license   	GNU/GPL 2 or later - http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+ * JCE is free software. This version may have been modified pursuant
+ * to the GNU General Public License, and as distributed it includes or
+ * is derivative of works licensed under the GNU General Public License or
+ * other free or open source software licenses.
+ */
+defined('_JEXEC') or die('RESTRICTED');
 
-// no direct access
-defined( '_JEXEC' ) or die( 'Restricted access' );
+class WFControllerCpanel extends WFController 
+{
+    function feed() {
+        $model = $this->getModel('cpanel');
+        $feeds = $model->getFeeds();
 
-// Controller
-require_once( JPATH_COMPONENT .DS. 'cpanel' .DS. 'controller.php' );
+        exit(json_encode(array('feeds' => $feeds)));
+    }
+}
 
-// Create the controller
-$controller	= new CpanelController( array(
-	'base_path' 	=>  JPATH_COMPONENT .DS. 'cpanel' ,
-	'template_path' =>  JPATH_COMPONENT .DS. 'cpanel' .DS. 'views' .DS. 'tmpl'
-) );
-
-$controller->execute( JRequest::getCmd( 'task' ) );
-$controller->redirect();
 ?>
