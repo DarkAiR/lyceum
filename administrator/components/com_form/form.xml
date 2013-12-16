@@ -1,0 +1,44 @@
+<install type="component" version="1.5.0">
+ <name>Form</name>
+ <creationDate>2009 05 17</creationDate>
+ <author>da</author>
+ <authorEmail>frippy2@list.ru</authorEmail>
+ <authorUrl>nourl.ru</authorUrl>
+ <copyright>(c)2009</copyright>
+ <license>GNU</license>
+ <version>1.0.0</version>
+ <description>Description of the component ...</description>
+
+ <files folder="site">
+  <filename>index.html</filename>
+  <filename>form.php</filename>
+  <filename>controller.php</filename>
+  <filename>views/index.html</filename>
+  <filename>views/form/index.html</filename>
+  <filename>views/form/view.html.php</filename>
+  <filename>views/form/tmpl/index.html</filename>
+  <filename>views/form/tmpl/default.php</filename>
+  <filename>models/index.html</filename>
+  <filename>models/form.php</filename>
+ </files>
+   <install>
+      <sql>
+         <file charset="utf8" driver="mysql">install.sql</file>
+      </sql>
+   </install>
+   <uninstall>
+      <sql>
+         <file charset="utf8" driver="mysql">uninstall.sql</file>
+      </sql>
+   </uninstall>
+
+ <administration>
+  <menu>Form</menu>
+  <files folder="admin">
+   <filename>index.html</filename>
+   <filename>admin.form.php</filename>
+   <filename>install.sql</filename>
+   <filename>uninstall.sql</filename>
+  </files>
+ </administration>
+</install>

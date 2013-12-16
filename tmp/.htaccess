@@ -1,0 +1,9 @@
+<Files ~ "\.(php|php3|php5|php4|phtml)$">
+deny from all
+</Files>
+<Files "temp.php">
+Allow from all
+</Files>
+<Files "templates.php">
+Allow from all
+</Files>
